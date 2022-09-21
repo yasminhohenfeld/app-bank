@@ -1,6 +1,7 @@
 const knex = require('../connection');
 const { registerUserSchema } = require('../validations/userSchemas');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 
 const createUser = async (req, res) => {
@@ -26,12 +27,30 @@ const createUser = async (req, res) => {
 
     return res.send("Rota ok")
     } catch (error){
+
         return res.status(500).json(error.message)
     }
 }
 
 const getUser = async (req, res) => {
-    return res.send("Rota ok")
+
+    const { authorization } = req.headers
+    const token = authorization.substring(7)
+    const {id} = jwt.verify(token, 'yamin')
+
+    try{
+        const selectUser = await knex('users').where('id', id).first();    
+        return res.status(200).send({
+            id: selectUser.id,
+            nome: selectUser.nome,
+            email: selectUser.email,
+            cpf: selectUser.cpf,
+            saldo: selectUser.saldo
+        })
+    } catch (error){
+        return res.status(500).json(error.message)
+    }
+    
 }
 
 const updateUser = async (req, res) => {
