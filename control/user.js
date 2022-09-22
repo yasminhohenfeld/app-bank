@@ -1,5 +1,6 @@
 const knex = require('../connection');
 const { registerUserSchema } = require('../validations/userSchemas');
+const { updateUserSchema } = require('../validations/userSchemas');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
@@ -35,8 +36,8 @@ const createUser = async (req, res) => {
 const getUser = async (req, res) => {
 
     const { authorization } = req.headers
-    const token = authorization.substring(7)
-    const {id} = jwt.verify(token, 'yamin')
+    const token = authorization.substring(7);
+    const {id} = jwt.verify(token, 'yamin');
 
     try{
         const selectUser = await knex('users').where('id', id).first();    
@@ -54,11 +55,51 @@ const getUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-    return res.send("Rota ok")
+
+    const { authorization } = req.headers
+    const token = authorization.substring(7);
+    const {id} = jwt.verify(token, 'yamin');
+
+    let { nome, email, senha, cpf } = req.body
+
+    try {
+        updateUserSchema.validate()
+        const selectUser = await knex('users').where('id', id).first();  
+
+        const emailFound =  await knex('users').where('email', email).first(); 
+
+        if((selectUser.email !== email) && (emailFound !== undefined)){
+            return res.status(400).json("Já existe um usuário com este email!")
+        }
+
+        const cpfFound =  await knex('users').where('cpf', cpf).first();       
+        if((selectUser.cpf !== cpf) && (cpfFound !== undefined)){
+            return res.status(400).json("Já existe um usuário com este cpf!")
+        }
+    
+        if (senha !== null && senha !== undefined){
+            const passwordEncrypted = await bcrypt.hash(senha, 10);
+            req.body.senha = passwordEncrypted
+        }
+
+        const userData = {
+            ...selectUser,
+            ...req.body
+        }
+
+        const updateTheUser = await knex('users').update(userData).where({ id })
+  
+        return res.status(200).send("Usuário atualizado com sucesso!")
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
 }
 
 const deleteUser = async (req, res) => {
     return res.send("Rota ok")
+
+      
+
 }
 
 module.exports = {

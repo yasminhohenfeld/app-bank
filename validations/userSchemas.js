@@ -8,6 +8,14 @@ const registerUserSchema = yup.object().shape({
     
   });
 
+const updateUserSchema = yup.object().shape({
+    nome: yup.string(),
+    email: yup.string().email(),
+    senha: yup.string(),
+    cpf: yup.string()
+})
+
 module.exports = {
-    registerUserSchema
+    registerUserSchema,
+    updateUserSchema
   }
