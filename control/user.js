@@ -95,16 +95,8 @@ const updateUser = async (req, res) => {
     }
 }
 
-const deleteUser = async (req, res) => {
-    return res.send("Rota ok")
-
-      
-
-}
-
 module.exports = {
     createUser,
     getUser,
-    updateUser,
-    deleteUser
+    updateUser
 }

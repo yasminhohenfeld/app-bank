@@ -11,7 +11,8 @@ routes.post("/login", login);
 routes.use(verificaLogin);
 routes.get("/user", user.getUser);
 routes.patch("/user", user.updateUser);
-routes.delete("/user", user.deleteUser);
+
+
 
 
 
