@@ -2,7 +2,7 @@ const knex = require('../connection');
 const { registerUserSchema } = require('../validations/userSchemas');
 const { updateUserSchema } = require('../validations/userSchemas');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 
 const createUser = async (req, res) => {
@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
 
         return res.status(200).json(`Bem-vindo ${nome}, cadastrado com sucesso!!`)
 
-    return res.send("Rota ok")
+    
     } catch (error){
 
         return res.status(500).json(error.message)
@@ -63,7 +63,7 @@ const updateUser = async (req, res) => {
     let { nome, email, senha, cpf } = req.body
 
     try {
-        updateUserSchema.validate()
+        updateUserSchema.validate(req.body)
         const selectUser = await knex('users').where('id', id).first();  
 
         const emailFound =  await knex('users').where('email', email).first(); 
