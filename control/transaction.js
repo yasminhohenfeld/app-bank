@@ -55,7 +55,25 @@ const createTransaction = async (req, res) => {
 
 const getTransactions = async (req, res) => {
 
-    return res.send("Ok")
+    const { authorization } = req.headers
+    const token = authorization.substring(7);
+    const {id} = jwt.verify(token, 'yamin');
+
+    try{
+
+        const userFoundOrigin = await knex('transactions').where("id_conta_origem", id,);
+        const userFoundDestiny = await knex('transactions').where("id_conta_destino", id,);
+
+
+        return res.status(200).send({
+            Transações_enviadas: userFoundOrigin,
+            Transações_recebidas: userFoundDestiny
+        })
+    }catch (error){
+        return res.status(500).json (error.message)
+    }
+
+    
 }
 
 const getTransactionsId = async (req, res) => {
