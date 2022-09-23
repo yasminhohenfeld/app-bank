@@ -20,6 +20,12 @@ const createTransaction = async (req, res) => {
             return res.status(400).json("Conta de origem não existe, por favor insira um id válido!")
         }
 
+        const consultedBalance = await knex('users').where('id', id).first();
+
+        if (consultedBalance.saldo < req.body.valor){
+            return res.status(400).json("Saldo insuficiente para esta transação")
+        }
+
         const dataAtual = new Date(Date.now());
 
        const transactionData = {
@@ -30,12 +36,17 @@ const createTransaction = async (req, res) => {
             data: dataAtual
        }
 
-       const saldoAtual = userFound.saldo + req.body.valor
+       const saldoAtualContaDestino = userFound.saldo + req.body.valor
 
        const insertTransaction = await knex('transactions').insert(transactionData); 
-       const updateBalance = await knex('users').update("saldo", saldoAtual).where({ id })
+       const updateBalanceDestiny = await knex('users').update("saldo", saldoAtualContaDestino).where('id', id_conta_destino);
 
-        return res.status(200).send ("oK")
+       const saldoAtualContaOrigem = consultedBalance.saldo - req.body.valor
+
+       const updateBalanceOrigin = await knex('users').update("saldo", saldoAtualContaOrigem).where('id', id);
+
+
+        return res.status(200).send (`Operação concluida com sucesso! Valor de ${req.body.valor} transferido para conta de ${userFound.nome}`)
     }
     catch (error){
         return res.status(500).json(error.message)
