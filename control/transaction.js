@@ -1,9 +1,7 @@
 const knex = require('../connection');
 const createTransactionSchema  = require('../validations/transactionSchemas');
 const jwt = require('jsonwebtoken');
-const { number } = require('yup');
-const { tr } = require('yup-locales');
-
+const createTransactionSchema = require('../validations/transactionSchemas')
 
 
 const createTransaction = async (req, res) => {
