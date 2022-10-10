@@ -17,6 +17,8 @@ const verificaLogin = async (req, res, next) => {
       
   
       const userFound = await knex('users').where({ id }).first();
+
+      req.user = userFound.id
   
       if (!userFound) {
         return res.status(404).json('Usuário não encontrado');

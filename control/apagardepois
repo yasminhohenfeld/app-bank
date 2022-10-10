@@ -1,0 +1,15 @@
+Banco De Dados
+
+- Criar tabela transação -(ok)
+colunas: id (da transação), data, id_conta_origem, tipo, valor, id_conta_destino (OK)
+
+
+Código 
+
+- Trocar os endpoints que puxam a antiga tabela transação
+- Criar endpoint de transferencia
+- Refatorar endpoint de transação
+- Implementar no código toda vez que for fazer uma transação dar um insert da tabela transação do banco
+
+XD
+
