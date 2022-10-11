@@ -56,14 +56,12 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
 
-    const { authorization } = req.headers
-    const token = authorization.substring(7);
-    const {id} = jwt.verify(token, 'yamin');
-
-    let { nome, email, senha, cpf } = req.body
+   const id = req.user
+   const { nome, email, senha, cpf } = req.body
 
     try {
         updateUserSchema.validate(req.body)
+        
         const selectUser = await knex('users').where('id', id).first();  
 
         const emailFound =  await knex('users').where('email', email).first(); 

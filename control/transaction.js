@@ -25,12 +25,17 @@ const getTransactionsId = async (req, res) => {
     const idTransaction = parseInt(req.params.id)
 
     try{   
-        const verifyId = isNaN(idTransaction)   
+        const verifyId = isNaN(idTransaction)
+
         if(verifyId === true){
             return res.status(400).json("Você deve enviar o id da transação que deseja consultar!")
         }
 
         const transaction = await knex('transactions').where("id", idTransaction).first();
+
+        if (transaction === undefined){
+            return res.status(400).json ("Transação não encontrada")
+        }
 
         if ((transaction.id_conta_origem !== id) && (transaction.id_conta_destino !== id)){
             return res.status(400).json("O id dessa transação não pertence ao seu usuário")

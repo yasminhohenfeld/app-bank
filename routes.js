@@ -6,6 +6,7 @@ const verificaLogin = require('./middleware/verifyLogin');
 const transaction = require('./control/transaction');
 const transfer = require('./control/transfer')
 const deposit  = require('./control/deposit');
+const withdraw = require('./control/ withdraw');
 
 
 routes.post("/user", user.createUser);
@@ -16,10 +17,16 @@ routes.get("/user", user.getUser);
 routes.patch("/user", user.updateUser);
 
 routes.post('/transfer', transfer);
-routes.get('/transactions', transaction.getTransactions);
-routes.get('/transaction/:id', transaction.getTransactionsId);
+
+routes.post('/saque', withdraw);
 
 routes.post('/deposit', deposit)
+
+
+routes.get('/extrato', transaction.getTransactions);
+routes.get('/extrato/:id', transaction.getTransactionsId);
+
+
 
 
 
