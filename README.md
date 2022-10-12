@@ -27,8 +27,8 @@ node index.js
 
 - Criação de conta:
 
-endpoint: POST ``` /user```
-corpo:
+Endpoint: POST ``` /user```
+Corpo:
 ```
 {
     nome: nome do usuário, 
@@ -37,11 +37,13 @@ corpo:
     cpf: cpf do usuário
 }
 ```
-retorno: 
+Retorno: 
 ```
 {Bem-vindo, (nome cadastrado), cadastrado com sucesso!!}
 ```
-descrição: Nessa rota será possível criar uma conta na aplicação. Retornará não autorizado no casos de não preencher os campos obrigatórios ou de utilizar um email de outro usuário já cadastrado.
+Descrição: Nessa rota será possível criar uma conta na aplicação. Retornará não autorizado no casos de não preencher os campos obrigatórios ou de utilizar um email de outro usuário já cadastrado.
+
+___________
 
 
 ##### Gerenciamento de sessão
