@@ -21,56 +21,34 @@ Levantar a aplicação com
 node index.js
 ```
 
-#### Rotas implementas
+#### Funcionalidades disponíveis 
 
-##### Criar Usuário 
+##### Gerencimaneto de conta
 
--
--
--
+- Criação de conta:
 
-##### Login
-
--
--
--
-
-##### Detalhar Usuário
-
--
--
--
-
-##### Atualizar Usuário
-
--
--
--
+endpoint: POST ``` /user```
+corpo:
+```
+{
+    nome: nome do usuário, 
+    email: email de cadastro, 
+    senha: senha de acesso,
+    cpf: cpf do usuário
+}
+```
+retorno: 
+```
+{Bem-vindo, (nome cadastrado), cadastrado com sucesso!!}
+```
+descrição: Nessa rota será possível criar uma conta na aplicação. Retornará não autorizado no casos de não preencher os campos obrigatórios ou de utilizar um email de outro usuário já cadastrado.
 
 
-##### Saque
-
--
--
--
-
-##### Depósito
-
--
--
--
-
-##### Transferência
-
--
--
--
-
-##### Transferência por id
-
--
--
--
+##### Gerenciamento de sessão
 
 
-
+##### Operações bancárias
+- depósito
+- saque
+- transferência
+- extrato 

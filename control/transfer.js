@@ -13,7 +13,7 @@ const createTransfer = async (req, res) => {
 
         if (!userFound){
             return res.status(400).json("Conta de origem não existe, por favor insira um id válido!")
-        }
+        } 
 
         const consultedBalance = await knex('users').where('id', id).first();
 
@@ -35,10 +35,10 @@ const createTransfer = async (req, res) => {
 
        
         const saldoAdicionadoContaDestino = userFound.saldo + req.body.valor
-        const updateBalanceDestiny = await knex('users').update("saldo", saldoAdicionadoContaDestino).where('id', id_conta_destino);
+        await knex('users').update("saldo", saldoAdicionadoContaDestino).where('id', id_conta_destino);
 
-       const saldoExtraidoContaOrigem = consultedBalance.saldo - req.body.valor
-       const updateBalanceOrigin = await knex('users').update("saldo", saldoExtraidoContaOrigem).where('id', id);
+        const saldoExtraidoContaOrigem = consultedBalance.saldo - req.body.valor
+        await knex('users').update("saldo", saldoExtraidoContaOrigem).where('id', id);
 
         return res.status(200).send (`Operação concluida com sucesso! Valor de ${req.body.valor} transferido para conta de ${userFound.nome}`)
     }
