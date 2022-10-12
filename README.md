@@ -4,8 +4,8 @@ Esta aplicação permite o usuário a criar uma conta, fazer depósitos, saques 
 
 #### Requisitos
 
-- node 
-- postgresql
+- [node](https://nodejs.org/en/download/)
+- [postgresql](https://www.postgresql.org/download/)
 
 #### Como rodar a aplicação
 
@@ -24,5 +24,53 @@ node index.js
 #### Rotas implementas
 
 ##### Criar Usuário 
+
+-
+-
+-
+
+##### Login
+
+-
+-
+-
+
+##### Detalhar Usuário
+
+-
+-
+-
+
+##### Atualizar Usuário
+
+-
+-
+-
+
+
+##### Saque
+
+-
+-
+-
+
+##### Depósito
+
+-
+-
+-
+
+##### Transferência
+
+-
+-
+-
+
+##### Transferência por id
+
+-
+-
+-
+
 
 
